@@ -14,8 +14,8 @@ namespace WindowsFormsProjeto1
             if (!ValidaNome(txtNome.Text))
                 MessageBox.Show("Nome inválido");
             //Remove os pontos e traços da máscara,
-            //para ler somente o valor que o usuário digitou
-            txtCPF.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+            //para ler somente o
+            //valor que o usuário digitou
             
             if (!ValidaCpf(txtCPF.Text))
                 MessageBox.Show("CPF Inválido");
@@ -36,7 +36,10 @@ namespace WindowsFormsProjeto1
 
         private bool ValidaCpf(string cpf) 
         {
-            if(cpf == null || cpf.Trim() == "" || !cpf.All(char.IsDigit) || cpf.Length!= 11)
+            cpf = cpf.Remove(3,1);
+            cpf = cpf.Remove(6,1);
+            cpf = cpf.Remove(9, 1);
+            if (cpf == null || cpf.Trim() == "" || cpf.Length!= 11)
             {
                 return false;
             }
