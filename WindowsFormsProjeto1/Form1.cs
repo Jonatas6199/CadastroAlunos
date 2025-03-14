@@ -13,14 +13,12 @@ namespace WindowsFormsProjeto1
         {
             if (!ValidaNome(txtNome.Text))
                 MessageBox.Show("Nome inválido");
-            //Remove os pontos e traços da máscara,
-            //para ler somente o
-            //valor que o usuário digitou
-            //TODO: VALIDACAOES
             
             if (!ValidaCpf(txtCPF.Text))
                 MessageBox.Show("CPF Inválido");
-           
+
+            if (!ValidaDataNascimento2(txtDataNascimento.Text))
+                MessageBox.Show("Data de Nascimento Inválida");
         }
 
         private bool ValidaNome(string nome)
@@ -40,7 +38,7 @@ namespace WindowsFormsProjeto1
             cpf = cpf.Remove(3,1);
             cpf = cpf.Remove(6,1);
             cpf = cpf.Remove(9, 1);
-            if (cpf == null || cpf.Trim() == "" || cpf.Length!= 11)
+            if (cpf == null || cpf.Trim() == "" || !cpf.All(char.IsDigit) || cpf.Length!= 11)
             {
                 return false;
             }
@@ -51,6 +49,41 @@ namespace WindowsFormsProjeto1
 
         }
 
+        private bool ValidaDataNascimento(string dataNascimento)
+        {
+            if (string.IsNullOrEmpty(dataNascimento))
+                return false;
+
+            DateTime hoje = DateTime.Today;
+            DateTime nascimento = Convert.ToDateTime(dataNascimento);
+
+            if(nascimento > hoje)
+                return false;
+            
+            return true;
+        }
+
+        private bool ValidaDataNascimento2(string dataNascimento)
+        {
+            //Verifica se o valor que vem na data de nascimento é vazio ou nulo
+            if (string.IsNullOrEmpty(dataNascimento))
+                return false;
+
+            //Utiliza a estrutura DateTime para buscar o valor da data de hoje e armazenar na variável hoje
+            DateTime hoje = DateTime.Today;
+            DateTime nascimento;
+
+            //Executa o método TryParse, que tenta converter o valor dataNascimento, que é uma string
+            //em uma data, caso dê sucesso, irá armazenar o valor da dataNascimento na variável nascimento.
+            bool sucesso = DateTime.TryParse(dataNascimento, out nascimento);
+
+            //Verifica se a conversão de data foi bem sucedida e se a data de nascimento é maior que a data de hoje.
+            if (!sucesso || nascimento > hoje)
+                return false;
+            
+            return true;
+        }
+
         private void txtPaís_KeyPress(object sender, KeyPressEventArgs e)
         {
             if(e.KeyChar == (char)Keys.Enter)
@@ -58,5 +91,6 @@ namespace WindowsFormsProjeto1
                 MessageBox.Show("Apertou o Enter");
             }
         }
+       
     }
 }
