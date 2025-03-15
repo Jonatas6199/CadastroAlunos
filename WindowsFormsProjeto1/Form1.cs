@@ -11,6 +11,7 @@ namespace WindowsFormsProjeto1
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            
             if (!ValidaNome(txtNome.Text))
                 MessageBox.Show("Nome inválido");
             
@@ -19,6 +20,10 @@ namespace WindowsFormsProjeto1
 
             if (!ValidaDataNascimento2(txtDataNascimento.Text))
                 MessageBox.Show("Data de Nascimento Inválida");
+            
+            if (!ValidaEmail(txtEmail.Text))
+                MessageBox.Show("Email inválido");
+          
         }
 
         private bool ValidaNome(string nome)
@@ -83,6 +88,36 @@ namespace WindowsFormsProjeto1
             
             return true;
         }
+
+
+        private bool ValidaEmail(string email)
+        {
+            if (!email.Contains("@"))
+                return false;
+
+            int posicaoDoArroba = email.IndexOf("@");
+
+            if (posicaoDoArroba > 0)
+            {
+                string restanteDoEmail = email.Substring(posicaoDoArroba+1);
+              
+                if (restanteDoEmail.Length > 1 &&
+                restanteDoEmail[0] != '.' &&
+                !restanteDoEmail.Contains("@") &&
+                restanteDoEmail.Contains("."))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            return false;
+
+        }
+
 
         private void txtPaís_KeyPress(object sender, KeyPressEventArgs e)
         {

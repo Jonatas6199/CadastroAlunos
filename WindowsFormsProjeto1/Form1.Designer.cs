@@ -322,6 +322,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(704, 355);
             Controls.Add(label13);
             Controls.Add(txtComplemento);
