@@ -13,7 +13,7 @@ namespace WindowsFormsProjeto1
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            
+            /*
             if (!ValidaNome(txtNome.Text))
                 MessageBox.Show("Nome inválido");
             
@@ -25,20 +25,20 @@ namespace WindowsFormsProjeto1
             
             if (!ValidaEmail(txtEmail.Text))
                 MessageBox.Show("Email inválido");
-
+            */
             AlunoModel novoAluno = new AlunoModel();
             novoAluno.Nome = txtNome.Text;
 
             string cpf = txtCPF.Text.Replace("-","");
             cpf = cpf.Replace(",", "");
-            novoAluno.CPF = Convert.ToInt64(cpf);
+            novoAluno.CPF = cpf;
 
             novoAluno.Email = txtEmail.Text;
 
             string telefone = txtCelular.Text.Replace("(", "");
             telefone = telefone.Replace(")", "");
             telefone = telefone.Replace("-","");
-            novoAluno.Telefone = Convert.ToInt64(telefone);
+            novoAluno.Telefone = telefone;
 
             novoAluno.DataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
 
@@ -46,7 +46,7 @@ namespace WindowsFormsProjeto1
 
             Random geraNumeroAleatorio = new Random();
             int numeroAleatorio = geraNumeroAleatorio.Next(1, 1000000);
-            novoAluno.NumeroMatricula = numeroAleatorio;
+            novoAluno.NumeroMatricula = numeroAleatorio.ToString();
 
             Database.SalvarAluno(novoAluno);
           
