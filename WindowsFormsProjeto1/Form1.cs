@@ -1,4 +1,6 @@
+using CadastroAlunos;
 using System.ComponentModel;
+using WindowsFormsProjeto1.Model;
 
 namespace WindowsFormsProjeto1
 {
@@ -23,6 +25,30 @@ namespace WindowsFormsProjeto1
             
             if (!ValidaEmail(txtEmail.Text))
                 MessageBox.Show("Email inválido");
+
+            AlunoModel novoAluno = new AlunoModel();
+            novoAluno.Nome = txtNome.Text;
+
+            string cpf = txtCPF.Text.Replace("-","");
+            cpf = cpf.Replace(",", "");
+            novoAluno.CPF = Convert.ToInt64(cpf);
+
+            novoAluno.Email = txtEmail.Text;
+
+            string telefone = txtCelular.Text.Replace("(", "");
+            telefone = telefone.Replace(")", "");
+            telefone = telefone.Replace("-","");
+            novoAluno.Telefone = Convert.ToInt64(telefone);
+
+            novoAluno.DataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
+
+            novoAluno.NomeDaMae = txtNomeDaMae.Text;
+
+            Random geraNumeroAleatorio = new Random();
+            int numeroAleatorio = geraNumeroAleatorio.Next(1, 1000000);
+            novoAluno.NumeroMatricula = numeroAleatorio;
+
+            Database.SalvarAluno(novoAluno);
           
         }
 
