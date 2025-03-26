@@ -26,6 +26,13 @@ namespace WindowsFormsProjeto1
             if (!ValidaEmail(txtEmail.Text))
                 MessageBox.Show("Email inválido");
             */
+
+
+
+
+
+
+
             AlunoModel novoAluno = new AlunoModel();
             novoAluno.Nome = txtNome.Text;
 
