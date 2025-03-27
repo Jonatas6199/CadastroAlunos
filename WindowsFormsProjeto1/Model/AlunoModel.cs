@@ -12,7 +12,7 @@ namespace WindowsFormsProjeto1.Model
         public string NumeroMatricula { get; set; }
         public string CPF { get; set; }
         public string Telefone { get; set; }
-        public EnderecoModel EnderecoAluno { get; set; }
+        public int IdEnderecoAluno { get; set; }
         public DateTime DataNascimento { get; set; }
         public string NomeDaMae { get; set; }
         public string Email { get; set; }

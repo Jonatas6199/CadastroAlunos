@@ -18,9 +18,9 @@ namespace CadastroAlunos
             conexao.Open();
 
             string query = "insert into Alunos (Nome, NumeroMatricula, Cpf," +
-                "Telefone,DataNascimento,NomeDaMae,Email)" +
+                "Telefone,DataNascimento,NomeDaMae,Email, IdEnderecoAluno)" +
                 " values(@nome, @numeroMatricula, @cpf, @telefone, " +
-                "@dataNascimento, @nomeDaMae, @email)";
+                "@dataNascimento, @nomeDaMae, @email, @idEnderecoAluno)";
             MySqlCommand cmd = conexao.CreateCommand();
             cmd.CommandText = query;
             cmd.Parameters.AddWithValue("@nome", aluno.Nome);
@@ -30,6 +30,7 @@ namespace CadastroAlunos
             cmd.Parameters.AddWithValue("@dataNascimento", aluno.DataNascimento);
             cmd.Parameters.AddWithValue("@nomeDaMae", aluno.NomeDaMae);
             cmd.Parameters.AddWithValue("@email", aluno.Email);
+            cmd.Parameters.AddWithValue("@idEnderecoAluno", aluno.IdEnderecoAluno);
             int quantidade =cmd.ExecuteNonQuery();
             conexao.Close();
             if (quantidade == 0)
@@ -38,7 +39,7 @@ namespace CadastroAlunos
                 return true;
         }
 
-        public static bool SalvarEndereco(EnderecoModel endereco) 
+        public static bool SalvarEndereco(EnderecoModel endereco, out int idEndereco) 
         {
             string stringDeConexao = "Server=localhost;Port=3306;User Id=root" +
               "; database=ti_113_windowsforms;";
@@ -60,6 +61,7 @@ namespace CadastroAlunos
             cmd.Parameters.AddWithValue("@estado", endereco.Estado);
             cmd.Parameters.AddWithValue("@pais", endereco.Pais);
             int quantidade = cmd.ExecuteNonQuery();
+            idEndereco = Convert.ToInt32(cmd.LastInsertedId);
             conexao.Close();
 
             if(quantidade == 0)

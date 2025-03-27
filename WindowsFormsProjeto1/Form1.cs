@@ -6,37 +6,48 @@ namespace WindowsFormsProjeto1
 {
     public partial class Form1 : Form
     {
+        //variável para saber qual o idEnderecoAluno que foi cadastrado.
+        private int IdEnderecoAlunoAuxiliar;
         public Form1()
         {
             InitializeComponent();
+            IdEnderecoAlunoAuxiliar = 0;
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            /*
-            if (!ValidaNome(txtNome.Text))
-                MessageBox.Show("Nome inválido");
+           SalvarEndereço();
+           SalvarAluno();
+        }
+        public bool SalvarEndereço()
+        {
+            EnderecoModel novoEndereco = new EnderecoModel();
+            novoEndereco.Logradouro = txtLogradouro.Text;
+
+            novoEndereco.Numero = Convert.ToInt32(txtNumero.Text);
             
-            if (!ValidaCpf(txtCPF.Text))
-                MessageBox.Show("CPF Inválido");
+            novoEndereco.Complemento = txtComplemento.Text;
 
-            if (!ValidaDataNascimento2(txtDataNascimento.Text))
-                MessageBox.Show("Data de Nascimento Inválida");
-            
-            if (!ValidaEmail(txtEmail.Text))
-                MessageBox.Show("Email inválido");
-            */
+            novoEndereco.Cep = txtCep.Text;
 
+            novoEndereco.Bairro = txtBairro.Text;
 
+            novoEndereco.Cidade = txtCidade.Text;
 
+            novoEndereco.Estado = txtEstado.Text;
 
+            novoEndereco.Pais = txtPaís.Text;
 
+            bool resultado= Database.SalvarEndereco(novoEndereco,out IdEnderecoAlunoAuxiliar);
+            return resultado;
+        }
 
-
+        public bool SalvarAluno()
+        {
             AlunoModel novoAluno = new AlunoModel();
             novoAluno.Nome = txtNome.Text;
 
-            string cpf = txtCPF.Text.Replace("-","");
+            string cpf = txtCPF.Text.Replace("-", "");
             cpf = cpf.Replace(",", "");
             novoAluno.CPF = cpf;
 
@@ -44,7 +55,7 @@ namespace WindowsFormsProjeto1
 
             string telefone = txtCelular.Text.Replace("(", "");
             telefone = telefone.Replace(")", "");
-            telefone = telefone.Replace("-","");
+            telefone = telefone.Replace("-", "");
             novoAluno.Telefone = telefone;
 
             novoAluno.DataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
@@ -55,8 +66,8 @@ namespace WindowsFormsProjeto1
             int numeroAleatorio = geraNumeroAleatorio.Next(1, 1000000);
             novoAluno.NumeroMatricula = numeroAleatorio.ToString();
 
-            Database.SalvarAluno(novoAluno);
-          
+            novoAluno.IdEnderecoAluno = IdEnderecoAlunoAuxiliar;
+            return Database.SalvarAluno(novoAluno);
         }
 
         private bool ValidaNome(string nome)
