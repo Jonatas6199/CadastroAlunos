@@ -69,5 +69,37 @@ namespace CadastroAlunos
             else
                 return true;
         }
+
+        public static List<AlunoModel> GetAlunos()
+        {
+            string stringDeConexao = "Server=localhost;Port=3306;User Id=root" +
+            "; database=ti_113_windowsforms;";
+            MySqlConnection conexao = new MySqlConnection(stringDeConexao);
+            conexao.Open();
+
+            string query = "select * from alunos";
+            MySqlCommand cmd = conexao.CreateCommand();
+            cmd.CommandText = query;
+
+            MySqlDataReader sqlDataReader = cmd.ExecuteReader();
+
+            List<AlunoModel> alunos = new List<AlunoModel>();
+            while (sqlDataReader.Read()) 
+            {
+                alunos.Add(new AlunoModel
+                {
+                    Nome = sqlDataReader.GetString("Nome"),
+                    NumeroMatricula = sqlDataReader.GetString("NumeroMatricula"),
+                    CPF = sqlDataReader.GetString("Cpf"),
+                    Telefone = sqlDataReader.GetString("Telefone"),
+                    DataNascimento = sqlDataReader.GetDateTime("DataNascimento"),
+                    NomeDaMae = sqlDataReader.GetString("NomeDaMae"),
+                    Email = sqlDataReader.GetString("Email"),
+                    IdEnderecoAluno = sqlDataReader.GetInt32("IdEnderecoAluno")
+                });
+            }
+            return alunos;
+          
+        }
     }
 }

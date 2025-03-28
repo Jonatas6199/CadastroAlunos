@@ -61,8 +61,20 @@
             panel2 = new Panel();
             label1 = new Label();
             label14 = new Label();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
+            lvRegistros = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
+            columnHeader4 = new ColumnHeader();
+            columnHeader5 = new ColumnHeader();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
             SuspendLayout();
             // 
             // txtNome
@@ -285,7 +297,7 @@
             btnSalvar.BackColor = SystemColors.GradientActiveCaption;
             btnSalvar.FlatStyle = FlatStyle.Flat;
             btnSalvar.Font = new Font("Segoe UI", 12F);
-            btnSalvar.Location = new Point(520, 475);
+            btnSalvar.Location = new Point(530, 475);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.Size = new Size(75, 31);
             btnSalvar.TabIndex = 32;
@@ -324,7 +336,7 @@
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtEmail);
             panel1.Controls.Add(label5);
-            panel1.Location = new Point(18, 26);
+            panel1.Location = new Point(28, 30);
             panel1.Name = "panel1";
             panel1.Size = new Size(577, 218);
             panel1.TabIndex = 35;
@@ -348,7 +360,7 @@
             panel2.Controls.Add(label9);
             panel2.Controls.Add(label10);
             panel2.Controls.Add(txtCidade);
-            panel2.Location = new Point(18, 284);
+            panel2.Location = new Point(28, 289);
             panel2.Name = "panel2";
             panel2.Size = new Size(577, 180);
             panel2.TabIndex = 36;
@@ -356,7 +368,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(19, 8);
+            label1.Location = new Point(28, 12);
             label1.Name = "label1";
             label1.Size = new Size(39, 15);
             label1.TabIndex = 37;
@@ -365,23 +377,90 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(21, 266);
+            label14.Location = new Point(28, 271);
             label14.Name = "label14";
             label14.Size = new Size(56, 15);
             label14.TabIndex = 38;
             label14.Text = "Endereço";
             // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Location = new Point(1, 3);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(647, 545);
+            tabControl1.TabIndex = 39;
+            // 
+            // tabPage1
+            // 
+            tabPage1.BackColor = Color.LightGray;
+            tabPage1.Controls.Add(label1);
+            tabPage1.Controls.Add(btnSalvar);
+            tabPage1.Controls.Add(label14);
+            tabPage1.Controls.Add(panel1);
+            tabPage1.Controls.Add(panel2);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(639, 517);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Cadastro";
+            // 
+            // tabPage2
+            // 
+            tabPage2.BackColor = Color.LightGray;
+            tabPage2.Controls.Add(lvRegistros);
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(639, 517);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Registros";
+            // 
+            // lvRegistros
+            // 
+            lvRegistros.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5 });
+            lvRegistros.GridLines = true;
+            lvRegistros.Location = new Point(28, 42);
+            lvRegistros.Name = "lvRegistros";
+            lvRegistros.Size = new Size(587, 405);
+            lvRegistros.TabIndex = 0;
+            lvRegistros.UseCompatibleStateImageBehavior = false;
+            lvRegistros.View = View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "Nome";
+            columnHeader1.Width = 180;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Matrícula";
+            columnHeader2.Width = 80;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Data de Nascimento";
+            columnHeader3.Width = 120;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "Logradouro";
+            columnHeader4.Width = 140;
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "Estado";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(616, 518);
-            Controls.Add(label14);
-            Controls.Add(label1);
-            Controls.Add(panel2);
-            Controls.Add(btnSalvar);
-            Controls.Add(panel1);
+            BackColor = Color.LightGray;
+            ClientSize = new Size(647, 545);
+            Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Form1";
@@ -390,8 +469,11 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            tabPage2.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -429,5 +511,14 @@
         private Panel panel2;
         private Label label1;
         private Label label14;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private ListView lvRegistros;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader4;
+        private ColumnHeader columnHeader5;
     }
 }

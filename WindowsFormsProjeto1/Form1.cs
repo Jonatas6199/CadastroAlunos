@@ -12,20 +12,58 @@ namespace WindowsFormsProjeto1
         {
             InitializeComponent();
             IdEnderecoAlunoAuxiliar = 0;
+            AtualizaLista();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-           SalvarEndereço();
-           SalvarAluno();
+            SalvarEndereço();
+            SalvarAluno();
+            //LimparCampos();
+            LimparCampos(tabControl1);
         }
+        public void LimparCampos()
+        {
+            txtNome.Clear();
+            txtLogradouro.Clear();
+            txtNomeDaMae.Clear();
+            txtBairro.Clear();
+            txtCPF.Clear();
+            txtCelular.Clear();
+            txtDataNascimento.Clear();
+            txtEmail.Clear();
+            txtNumero.Clear();
+            txtCep.Clear();
+            txtCidade.Clear();
+            txtEstado.Clear();
+            txtPaís.Clear();
+            txtComplemento.Clear();
+        }
+        public void LimparCampos(Control control)
+        {
+            foreach (Control elemento in control.Controls)
+            {
+                if (elemento is Panel)
+                {
+                    foreach (Control subElemento in elemento.Controls)
+                    {
+                        if (subElemento is TextBox)
+                            ((TextBox)subElemento).Clear();
+                        else if (subElemento is MaskedTextBox)
+                            ((MaskedTextBox)subElemento).Clear();
+                    }
+                }
+            }
+        }
+
+
         public bool SalvarEndereço()
         {
             EnderecoModel novoEndereco = new EnderecoModel();
             novoEndereco.Logradouro = txtLogradouro.Text;
 
             novoEndereco.Numero = Convert.ToInt32(txtNumero.Text);
-            
+
             novoEndereco.Complemento = txtComplemento.Text;
 
             novoEndereco.Cep = txtCep.Text;
@@ -38,7 +76,7 @@ namespace WindowsFormsProjeto1
 
             novoEndereco.Pais = txtPaís.Text;
 
-            bool resultado= Database.SalvarEndereco(novoEndereco,out IdEnderecoAlunoAuxiliar);
+            bool resultado = Database.SalvarEndereco(novoEndereco, out IdEnderecoAlunoAuxiliar);
             return resultado;
         }
 
@@ -82,12 +120,12 @@ namespace WindowsFormsProjeto1
             }
         }
 
-        private bool ValidaCpf(string cpf) 
+        private bool ValidaCpf(string cpf)
         {
-            cpf = cpf.Remove(3,1);
-            cpf = cpf.Remove(6,1);
+            cpf = cpf.Remove(3, 1);
+            cpf = cpf.Remove(6, 1);
             cpf = cpf.Remove(9, 1);
-            if (cpf == null || cpf.Trim() == "" || !cpf.All(char.IsDigit) || cpf.Length!= 11)
+            if (cpf == null || cpf.Trim() == "" || !cpf.All(char.IsDigit) || cpf.Length != 11)
             {
                 return false;
             }
@@ -106,9 +144,9 @@ namespace WindowsFormsProjeto1
             DateTime hoje = DateTime.Today;
             DateTime nascimento = Convert.ToDateTime(dataNascimento);
 
-            if(nascimento > hoje)
+            if (nascimento > hoje)
                 return false;
-            
+
             return true;
         }
 
@@ -129,7 +167,7 @@ namespace WindowsFormsProjeto1
             //Verifica se a conversão de data foi bem sucedida e se a data de nascimento é maior que a data de hoje.
             if (!sucesso || nascimento > hoje)
                 return false;
-            
+
             return true;
         }
 
@@ -143,8 +181,8 @@ namespace WindowsFormsProjeto1
 
             if (posicaoDoArroba > 0)
             {
-                string restanteDoEmail = email.Substring(posicaoDoArroba+1);
-              
+                string restanteDoEmail = email.Substring(posicaoDoArroba + 1);
+
                 if (restanteDoEmail.Length > 1 &&
                 restanteDoEmail[0] != '.' &&
                 !restanteDoEmail.Contains("@") &&
@@ -165,11 +203,22 @@ namespace WindowsFormsProjeto1
 
         private void txtPaís_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char)Keys.Enter)
             {
                 MessageBox.Show("Apertou o Enter");
             }
         }
-       
+
+        public void AtualizaLista()
+        {
+            //Database.GetAlunos();
+            ListViewItem registro = new ListViewItem("Joao");
+            registro.SubItems.Add("2121");
+            registro.SubItems.Add("21/02/2005");
+            registro.SubItems.Add("Rua dos Ipês");
+            registro.SubItems.Add("SP");
+
+            lvRegistros.Items.Add(registro);
+        }
     }
 }
