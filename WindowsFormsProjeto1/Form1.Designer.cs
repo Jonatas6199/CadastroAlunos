@@ -429,6 +429,7 @@
             lvRegistros.TabIndex = 0;
             lvRegistros.UseCompatibleStateImageBehavior = false;
             lvRegistros.View = View.Details;
+            lvRegistros.SelectedIndexChanged += lvRegistros_SelectedIndexChanged;
             lvRegistros.Click += lvRegistros_Click;
             // 
             // columnHeader1

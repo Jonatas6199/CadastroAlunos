@@ -19,8 +19,9 @@ namespace WindowsFormsProjeto1
         {
             SalvarEndereço();
             SalvarAluno();
-            //LimparCampos();
-            LimparCampos(tabControl1);
+            LimparCampos();
+            //LimparCampos(tabControl1);
+            AtualizaLista();
         }
         public void LimparCampos()
         {
@@ -43,16 +44,10 @@ namespace WindowsFormsProjeto1
         {
             foreach (Control elemento in control.Controls)
             {
-                if (elemento is Panel)
-                {
-                    foreach (Control subElemento in elemento.Controls)
-                    {
-                        if (subElemento is TextBox)
-                            ((TextBox)subElemento).Clear();
-                        else if (subElemento is MaskedTextBox)
-                            ((MaskedTextBox)subElemento).Clear();
-                    }
-                }
+                if (elemento is TextBox)
+                    ((TextBox)elemento).Clear();
+                else if (elemento is MaskedTextBox)
+                    ((MaskedTextBox)elemento).Clear();
             }
         }
 
@@ -226,6 +221,11 @@ namespace WindowsFormsProjeto1
 
                 registro.SubItems.Add(enderecoAluno.Logradouro);
                 registro.SubItems.Add(enderecoAluno.Estado);
+                registro.Tag = new List<object>
+                {
+                    aluno,
+                    enderecoAluno
+                };
                 lvRegistros.Items.Add(registro);
 
             }
@@ -234,8 +234,29 @@ namespace WindowsFormsProjeto1
 
         private void lvRegistros_Click(object sender, EventArgs e)
         {
-            Detalhes_Cadastro detalhes_Cadastro = new Detalhes_Cadastro();
-            detalhes_Cadastro.ShowDialog();
+            if (lvRegistros.SelectedItems.Count > 0)
+            {
+                var selectedItem = lvRegistros.SelectedItems[0];
+                var dados = selectedItem.Tag as List<object>;
+
+                if (dados != null && dados.Count == 2)
+                {
+                    var aluno = dados[0] as AlunoModel;
+                    var endereco = dados[1] as EnderecoModel;
+
+                    if (aluno != null && endereco != null)
+                    {
+                        var detalhesForm = new Detalhes_Cadastro(aluno, endereco);
+                        detalhesForm.ShowDialog(); //         
+                    }
+                }
+            }
+
+        }
+
+        private void lvRegistros_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          
         }
     }
 }

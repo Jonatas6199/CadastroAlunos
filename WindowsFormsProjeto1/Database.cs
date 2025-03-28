@@ -10,10 +10,9 @@ namespace CadastroAlunos
 {
     public static class Database
     {
+        private static string stringDeConexao = "Server=localhost; port=3307;User ID=root;Password=root;Database=ti_113_windowsforms;AllowUserVariables=True";
         public static bool SalvarAluno(AlunoModel aluno)
         {
-            string stringDeConexao = "Server=localhost;Port=3306;User Id=root" +
-                "; database=ti_113_windowsforms;";
             MySqlConnection conexao = new MySqlConnection(stringDeConexao);
             conexao.Open();
 
@@ -41,8 +40,6 @@ namespace CadastroAlunos
 
         public static bool SalvarEndereco(EnderecoModel endereco, out int idEndereco) 
         {
-            string stringDeConexao = "Server=localhost;Port=3306;User Id=root" +
-              "; database=ti_113_windowsforms;";
             MySqlConnection conexao = new MySqlConnection(stringDeConexao);
             conexao.Open();
 
@@ -72,8 +69,6 @@ namespace CadastroAlunos
 
         public static List<AlunoModel> GetAlunos()
         {
-            string stringDeConexao = "Server=localhost;Port=3306;User Id=root" +
-            "; database=ti_113_windowsforms;";
             MySqlConnection conexao = new MySqlConnection(stringDeConexao);
             conexao.Open();
 
@@ -103,8 +98,6 @@ namespace CadastroAlunos
 
         public static List<EnderecoModel> GetEnderecos()
         {
-            string stringDeConexao = "Server=localhost;Port=3306;User Id=root" +
-            "; database=ti_113_windowsforms;";
             MySqlConnection conexao = new MySqlConnection(stringDeConexao);
             conexao.Open();
 
