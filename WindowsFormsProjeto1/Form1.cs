@@ -214,7 +214,7 @@ namespace WindowsFormsProjeto1
             List<AlunoModel> alunos = Database.GetAlunos();
             List<EnderecoModel> enderecoModels = Database.GetEnderecos();
 
-            foreach (AlunoModel aluno in alunos) 
+            foreach (AlunoModel aluno in alunos)
             {
                 ListViewItem registro = new ListViewItem(aluno.Nome);
                 registro.SubItems.Add(aluno.NumeroMatricula);
@@ -230,6 +230,12 @@ namespace WindowsFormsProjeto1
 
             }
 
+        }
+
+        private void lvRegistros_Click(object sender, EventArgs e)
+        {
+            Detalhes_Cadastro detalhes_Cadastro = new Detalhes_Cadastro();
+            detalhes_Cadastro.ShowDialog();
         }
     }
 }

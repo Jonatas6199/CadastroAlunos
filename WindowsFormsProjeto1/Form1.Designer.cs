@@ -429,6 +429,7 @@
             lvRegistros.TabIndex = 0;
             lvRegistros.UseCompatibleStateImageBehavior = false;
             lvRegistros.View = View.Details;
+            lvRegistros.Click += lvRegistros_Click;
             // 
             // columnHeader1
             // 
