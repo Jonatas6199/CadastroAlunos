@@ -211,14 +211,25 @@ namespace WindowsFormsProjeto1
 
         public void AtualizaLista()
         {
-            //Database.GetAlunos();
-            ListViewItem registro = new ListViewItem("Joao");
-            registro.SubItems.Add("2121");
-            registro.SubItems.Add("21/02/2005");
-            registro.SubItems.Add("Rua dos Ipês");
-            registro.SubItems.Add("SP");
+            List<AlunoModel> alunos = Database.GetAlunos();
+            List<EnderecoModel> enderecoModels = Database.GetEnderecos();
 
-            lvRegistros.Items.Add(registro);
+            foreach (AlunoModel aluno in alunos) 
+            {
+                ListViewItem registro = new ListViewItem(aluno.Nome);
+                registro.SubItems.Add(aluno.NumeroMatricula);
+                registro.SubItems.Add(aluno.DataNascimento.ToString());
+
+                //Pega o endereço do aluno
+                EnderecoModel enderecoAluno = enderecoModels.First(
+                        endereco => endereco.Id == aluno.IdEnderecoAluno);
+
+                registro.SubItems.Add(enderecoAluno.Logradouro);
+                registro.SubItems.Add(enderecoAluno.Estado);
+                lvRegistros.Items.Add(registro);
+
+            }
+
         }
     }
 }

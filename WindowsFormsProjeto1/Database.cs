@@ -99,7 +99,40 @@ namespace CadastroAlunos
                 });
             }
             return alunos;
-          
         }
+
+        public static List<EnderecoModel> GetEnderecos()
+        {
+            string stringDeConexao = "Server=localhost;Port=3306;User Id=root" +
+            "; database=ti_113_windowsforms;";
+            MySqlConnection conexao = new MySqlConnection(stringDeConexao);
+            conexao.Open();
+
+            string query = "select * from enderecoaluno";
+            MySqlCommand cmd = conexao.CreateCommand();
+            cmd.CommandText = query;
+
+            MySqlDataReader sqlDataReader = cmd.ExecuteReader();
+
+            List<EnderecoModel> enderecos = new List<EnderecoModel>();
+            while (sqlDataReader.Read())
+            {
+                enderecos.Add(new EnderecoModel
+                {
+                    Id = sqlDataReader.GetInt32("Id"),
+                    Logradouro = sqlDataReader.GetString("Logradouro"),
+                    Numero = sqlDataReader.GetInt32("Numero"),
+                    Cep = sqlDataReader.GetString("Cep"),
+                    Bairro = sqlDataReader.GetString("Bairro"),
+                    Complemento = sqlDataReader.GetString("Complemento"),
+                    Cidade = sqlDataReader.GetString("Cidade"),
+                    Estado = sqlDataReader.GetString("Estado"),
+                    Pais = sqlDataReader.GetString("Pais"),
+                });
+            }
+            return enderecos;
+        }
+
+
     }
 }
